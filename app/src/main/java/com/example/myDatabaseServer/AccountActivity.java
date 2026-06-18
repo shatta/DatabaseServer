@@ -4,6 +4,10 @@
  */
 package com.example.myDatabaseServer;
 
+
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.*;
 /**
  *
@@ -19,6 +23,7 @@ public class AccountActivity extends GlobalFunctions {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Account Manager");
+        placeInfo();
     }
 
     /**
@@ -65,10 +70,13 @@ public class AccountActivity extends GlobalFunctions {
         rbDisabled.addActionListener(this::rbDisabledActionPerformed);
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(this::btnSubmitActionPerformed);
 
         btnReset.setText("Reset");
+        btnReset.addActionListener(this::btnResetActionPerformed);
 
         btnExit.setText("Exit");
+        btnExit.addActionListener(this::btnExitActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,6 +140,7 @@ public class AccountActivity extends GlobalFunctions {
         // Processing.
         if(rbEnabled.isSelected()) {
             rbDisabled.setSelected(false);
+            newAccountActivity = 1;
         }
     }//GEN-LAST:event_rbEnabledActionPerformed
 
@@ -139,15 +148,75 @@ public class AccountActivity extends GlobalFunctions {
         // Processing.
         if(rbDisabled.isSelected()) {
             rbEnabled.setSelected(false);
+            newAccountActivity = 0;
         }
     }//GEN-LAST:event_rbDisabledActionPerformed
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // Processing.
+        this.setVisible(false);
+        myAdministrator.setVisible(true);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // Processing.
+        rbEnabled.setSelected(false);
+        rbEnabled.setSelected(false);
+        txtUserActivity.setText("");
+        txtUsername.setText("");
+        UserName = "";
+        accountActivity = Integer.parseInt("null");
+        newAccountActivity = Integer.parseInt("null");
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // Processing.
+        modifyInfo();
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
     
     // Functions
-    // Functions.
+    // Functions to place info.
     private void placeInfo() {
         txtUsername.setText(UserName);
-        txtUserActivity.setText(userAccountLevel);
+        if(accountActivity == 1) {
+          txtUserActivity.setText("Enabled");
+          rbEnabled.setSelected(true);
+          rbDisabled.setSelected(false);
+        } else if(accountActivity == 0) {
+          txtUserActivity.setText("Disabled");
+          rbDisabled.setSelected(true);
+          rbEnabled.setSelected(false);
+        }
+    } // End of placeinfo function
+    
+    // Function to modify account activity
+    // Function to modify information.
+    private void modifyInfo() {
+         try {     
+           databaseURL = databaseURLHeader + databaseHostName + ":" + databasePort + "/" + databaseName + secureTransport;
+           databaseConn = DriverManager.getConnection(databaseURL, databaseUsername, databasePassword);
+          if(databaseConn == null) {
+            JOptionPane.showMessageDialog(null,"Unable to connect to Database!");
+          } else {
+             
+              // checking if username is available.
+              myPrepStmt = databaseConn.prepareStatement(modifyActivityQuery);
+              myPrepStmt.setString(1, Integer.toString(newAccountActivity));
+              myPrepStmt.setString(2, UserName);
+              
+              int rowsModified = myPrepStmt.executeUpdate();
+              
+              if(rowsModified > 0) {
+                JOptionPane.showMessageDialog(null,"User information modified!");
+              } else {
+                 JOptionPane.showMessageDialog(null,"Unable to modify information");
+              } 
+      
+         } // End of if else statement to pull information using either firstname or username.  
+      } catch (SQLException exception) {
+         JOptionPane.showMessageDialog(null,"Exception is: " + exception.getMessage());
+      } // End of try-catch
     }
     
 
