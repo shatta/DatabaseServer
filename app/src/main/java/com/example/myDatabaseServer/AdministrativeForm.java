@@ -177,7 +177,6 @@ public class AdministrativeForm extends GlobalFunctions {
     private void btnModifyAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyAccessActionPerformed
         // Processing.
         UserName = JOptionPane.showInputDialog(null,"Please enter Username");
-        getUserAccess();
         myModifyAccess = new AccessModify();  
         myModifyAccess.setVisible(true);
         this.setVisible(false);  
@@ -230,30 +229,7 @@ public class AdministrativeForm extends GlobalFunctions {
       } // End of try-catch
     }
     
-    private void getUserAccess() {
-      try {  
-        databaseURL = databaseURLHeader + databaseHostName + ":" + databasePort + "/" + databaseName + secureTransport;
-        databaseConn = DriverManager.getConnection(databaseURL,databaseUsername,databasePassword);
-        if(databaseConn == null) {
-         JOptionPane.showMessageDialog(null,"Unable to connect to Database!");
-        } else {
-           myPrepStmt = databaseConn.prepareStatement(checkQuery);
-           myPrepStmt.setString(1, UserName);
-           myResultSet = myPrepStmt.executeQuery();
-           
-           if(myResultSet.next()) {
-               UserName = myResultSet.getString("Username");
-               userAccountLevel = myResultSet.getString("AccessType");
-               accountActivity = Integer.parseInt(myResultSet.getString("Activity"));
-           } else {
-               JOptionPane.showMessageDialog(null,"User does not exist!");
-           }
-        } // End of if-else statement for connecting to database.
-      } catch (SQLException e) {
-          JOptionPane.showMessageDialog(null,e.getMessage());
-      }  
-        
-   } // End of function getAccess.
+   // End of function getAccess.
    
   
 

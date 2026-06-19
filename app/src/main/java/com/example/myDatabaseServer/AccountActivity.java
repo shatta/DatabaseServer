@@ -23,7 +23,7 @@ public class AccountActivity extends GlobalFunctions {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Account Manager");
-        placeInfo();
+        
     }
 
     /**
@@ -47,6 +47,11 @@ public class AccountActivity extends GlobalFunctions {
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblTitle.setFont(new java.awt.Font("Adwaita Sans", 1, 24)); // NOI18N
         lblTitle.setText("Account Management");
@@ -160,19 +165,26 @@ public class AccountActivity extends GlobalFunctions {
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // Processing.
-        rbEnabled.setSelected(false);
-        rbEnabled.setSelected(false);
-        txtUserActivity.setText("");
-        txtUsername.setText("");
-        UserName = "";
-        accountActivity = Integer.parseInt("null");
-        newAccountActivity = Integer.parseInt("null");
+        resetForm();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // Processing.
+        if(rbEnabled.isSelected()) {
+            newAccountActivity = 1;
+        } else if(rbDisabled.isSelected()) {
+            newAccountActivity = 0;
+        }
         modifyInfo();
+        resetForm();
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // Processing.
+        getUserAccess();
+        placeInfo();
+  
+    }//GEN-LAST:event_formWindowOpened
 
     
     // Functions
@@ -190,6 +202,16 @@ public class AccountActivity extends GlobalFunctions {
         }
     } // End of placeinfo function
     
+    // Function to reset form
+    private void resetForm() {
+        rbEnabled.setSelected(false);
+        rbDisabled.setSelected(false);
+        txtUserActivity.setText("");
+        txtUsername.setText("");
+        UserName = "";
+        accountActivity = 9;
+        newAccountActivity = 9;
+    }
     // Function to modify account activity
     // Function to modify information.
     private void modifyInfo() {
@@ -200,7 +222,7 @@ public class AccountActivity extends GlobalFunctions {
             JOptionPane.showMessageDialog(null,"Unable to connect to Database!");
           } else {
              
-              // checking if username is available.
+              // Grabbing user information.
               myPrepStmt = databaseConn.prepareStatement(modifyActivityQuery);
               myPrepStmt.setString(1, Integer.toString(newAccountActivity));
               myPrepStmt.setString(2, UserName);
@@ -219,6 +241,30 @@ public class AccountActivity extends GlobalFunctions {
       } // End of try-catch
     }
     
+      private void getUserAccess() {
+      try {  
+        databaseURL = databaseURLHeader + databaseHostName + ":" + databasePort + "/" + databaseName + secureTransport;
+        databaseConn = DriverManager.getConnection(databaseURL,databaseUsername,databasePassword);
+        if(databaseConn == null) {
+         JOptionPane.showMessageDialog(null,"Unable to connect to Database!");
+        } else {
+           myPrepStmt = databaseConn.prepareStatement(checkQuery);
+           myPrepStmt.setString(1, UserName);
+           myResultSet = myPrepStmt.executeQuery();
+           
+           if(myResultSet.next()) {
+               UserName = myResultSet.getString("Username");
+               userAccountLevel = myResultSet.getString("AccessType");
+               accountActivity = Integer.parseInt(myResultSet.getString("Active"));
+           } else {
+               JOptionPane.showMessageDialog(null,"User does not exist!");
+           }
+        } // End of if-else statement for connecting to database.
+      } catch (SQLException e) {
+          JOptionPane.showMessageDialog(null,e.getMessage());
+      }  
+        
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
