@@ -3,21 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.example.myDatabaseServer;
-import static com.example.myDatabaseServer.GlobalVariables.UserName;
-import static com.example.myDatabaseServer.GlobalVariables.checkQuery;
-import static com.example.myDatabaseServer.GlobalVariables.databaseConn;
-import static com.example.myDatabaseServer.GlobalVariables.databaseHostName;
-import static com.example.myDatabaseServer.GlobalVariables.databaseName;
-import static com.example.myDatabaseServer.GlobalVariables.databasePassword;
-import static com.example.myDatabaseServer.GlobalVariables.databasePort;
-import static com.example.myDatabaseServer.GlobalVariables.databaseURL;
-import static com.example.myDatabaseServer.GlobalVariables.databaseURLHeader;
-import static com.example.myDatabaseServer.GlobalVariables.databaseUsername;
-import static com.example.myDatabaseServer.GlobalVariables.loginUsername;
-import static com.example.myDatabaseServer.GlobalVariables.myPrepStmt;
-import static com.example.myDatabaseServer.GlobalVariables.myResultSet;
-import static com.example.myDatabaseServer.GlobalVariables.secureTransport;
-import static com.example.myDatabaseServer.GlobalVariables.userAccountLevel;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.*;
@@ -37,7 +23,7 @@ public class AccessModify extends GlobalVariables {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("User Access Modifier");
-        placeInfo();
+      
     }
 
     /**
@@ -61,6 +47,11 @@ public class AccessModify extends GlobalVariables {
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblTitle.setFont(new java.awt.Font("Adwaita Sans", 1, 24)); // NOI18N
         lblTitle.setText("Modify User Access");
@@ -165,11 +156,16 @@ public class AccessModify extends GlobalVariables {
        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // Processing.
+        placeInfo();
+    }//GEN-LAST:event_formWindowOpened
+
     
     // Functions.
     private void placeInfo() {
         txtCurrentUser.setText(UserName);
-        txtCurrentAccessLevel.setText(userAccountLevel);
+        txtCurrentAccessLevel.setText(modifyUserAccountType);
     }
     
     private void modifyInfo() {

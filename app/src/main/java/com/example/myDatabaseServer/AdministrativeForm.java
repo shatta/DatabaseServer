@@ -177,6 +177,7 @@ public class AdministrativeForm extends GlobalFunctions {
     private void btnModifyAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyAccessActionPerformed
         // Processing.
         UserName = JOptionPane.showInputDialog(null,"Please enter Username");
+        getUser();
         myModifyAccess = new AccessModify();  
         myModifyAccess.setVisible(true);
         this.setVisible(false);  
@@ -219,6 +220,7 @@ public class AdministrativeForm extends GlobalFunctions {
                  DatabaseuserAge = myResultSet.getInt("Age");
                  DatabaseuserEmailAddress = myResultSet.getString("EmailAddress");
                  DatabaseloginUsername = myResultSet.getString("Username");
+                 modifyUserAccountType = myResultSet.getString("AccessType");
               } else {
                  JOptionPane.showMessageDialog(null,"User not found!");
               } 

@@ -71,7 +71,7 @@ public class GlobalVariables extends JFrame {
     static final String checkQuery = "SELECT * FROM currentUsers WHERE username = ?";
     static final String modifyPassQuery = "UPDATE currentUsers SET Password_Hash = ? WHERE username = ?";
     static final String addQuery = "INSERT INTO currentUsers (Firstname, Lastname, Age, Birthday, EmailAddress, Username, Password_Hash, Active, AccessType) VALUES (?,?,?,?,?,?,?,?,?)";
-    static final String modifyQuery = "UPDATE currentUsers SET Firstname = ?, Lastname = ?, Age = ?, Birthday = ?, EmailAddress = ?, WHERE username = ?";
+    static final String modifyQuery = "UPDATE currentUsers SET Firstname = ?, Lastname = ?, Age = ?, Birthday = ?, EmailAddress = ? WHERE username = ?";
     static final String modifyAccessQuery = "UPDATE currentUsers SET AccessType = ? WHERE username = ?";
     static final String modifyActivityQuery = "UPDATE currentUsers SET Active = ? WHERE username = ?";
     static final String myFilePath = "src/main/resources/";
@@ -83,6 +83,7 @@ public class GlobalVariables extends JFrame {
     static final String dbPasswordKey = "db.Password";
     static final String dbTableKey = "db.TableName";
     static String changeUsername;
+    static String modifyUserAccountType;
     static final String getOS = System.getProperty("os.name").toLowerCase();
     static final double normAlbumin = 4.0;
     static double correctedCalcium;
