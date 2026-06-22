@@ -127,8 +127,7 @@ public class ProgramUpdates extends GlobalFunctions {
     private static String getVersion() {
          Properties properties = new Properties();
         // Load the file from the classpath
-        try (InputStream input = ProgramUpdates.class.getClassLoader()
-                .getResourceAsStream("application.properties")) {
+        try (InputStream input = GlobalVariables.class.getResourceAsStream("/config.properties")) {
             
             if (input == null) {
                 return "Unknown (properties missing)";

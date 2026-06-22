@@ -99,6 +99,7 @@ public class GlobalFunctions extends GlobalVariables {
         programProperties.put(dbUsernameKey, databaseUsername);
         programProperties.put(dbPasswordKey, databasePassword);
         programProperties.put(dbDatabaseNameKey, databaseName);
+        programProperties.put("app.version", appVersion);
         
         try {
             fileStream = Files.newBufferedWriter(filePath);
