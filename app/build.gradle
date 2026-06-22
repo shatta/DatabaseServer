@@ -46,8 +46,13 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-jar {
-  manifest {
-     attributes ('Implementation-Version': project.version)
-  }
+group = 'com.example.myDatabaseServer'
+version = '0.1.0'
+
+processResources {
+  inputs.property "version", project.version
+  
+  filesMatching("**/application.properties") {
+    expand(projectVersions: project.version)
+ }
 }
