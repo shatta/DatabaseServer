@@ -223,6 +223,23 @@ public class GlobalFunctions extends GlobalVariables {
   } // End of function to delete UserInfo  
 
 
- 
+ public static String getCurrentVersion() {
+         Properties properties = new Properties();
+        // Load the file from the classpath
+        try (InputStream input = GlobalVariables.class.getResourceAsStream("/config.properties")) {
+            
+            if (input == null) {
+                return "Unknown (properties missing)";
+            }
+            
+            properties.load(input);
+            return properties.getProperty("app.version", "Unknown");
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return "Unknown (error loading)";
+        }
+        
+    }
      
 }

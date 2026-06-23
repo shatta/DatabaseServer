@@ -24,8 +24,8 @@ public class ProgramUpdates extends GlobalFunctions {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Ramil Rx System Updates");
-        txtCurrentVersion.setText(appVersion);
-        JOptionPane.showMessageDialog(null,"Version number: " + myVersion);
+        txtCurrentVersion.setText(myVersion);
+        
     }
 
     /**

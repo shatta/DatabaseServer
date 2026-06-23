@@ -22,6 +22,7 @@ public class myDatabaseServerMain extends GlobalFunctions {
         } // End of look and feel try-catch statement
        
          checkPropFile();
+         currentVersion = getCurrentVersion();
          if(fileExists == false) {
              myConfigForm.setVisible(true);
          } else {

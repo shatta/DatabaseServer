@@ -17,7 +17,7 @@ public class PharmacySuiteMainMenu extends GlobalFunctions {
     public PharmacySuiteMainMenu() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Ramil Systems Pharmacy Suite " + appVersion);
+        setTitle("Ramil Systems Pharmacy Suite " + currentVersion);
         lblTitle.setText("Welcome " + userFirstName);
         
         // Addition of administrative settings for the admin level users. 

@@ -50,14 +50,14 @@ tasks.named('test') {
 
 group = 'com.example.myDatabaseServer'
 
-version = '0.1.0'
+def appVersion = '0.1.0'
 
-appVersion = project.version.toSring()
+version = appVersion
 
-tasks.named('processResources', ProcessResources) {
-    inputs.property "projectVersion", project.version
+tasks.named('processResources') {
+    inputs.property('projectVersion', appVersion)
 
     filesMatching("**/config.properties") {
-        expand(projectVersion: project.version)
+        expand(projectVersion: appVersion)
     }
 }

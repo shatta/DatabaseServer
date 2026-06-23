@@ -135,6 +135,7 @@ public class GlobalVariables extends JFrame {
     static String DatabaseuserEmailAddress;
     static String DatabaseloginUsername;
     static CountDownLatch latch = new CountDownLatch(5);
+    static String currentVersion;
     
     //  Declaring and defining Threads.
       
