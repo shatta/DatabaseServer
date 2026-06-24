@@ -88,7 +88,8 @@ public class GlobalVariables extends JFrame {
     static final double normAlbumin = 4.0;
     static double correctedCalcium;
     static String correctedCalciumString;
-    static String appVersion = GlobalVariables.class.getPackage().getImplementationVersion();
+    static String appVersion;
+    static String newAppVersion;
     static double serumCalcium;
     static double serumAlbumin;
     static double idealBW;

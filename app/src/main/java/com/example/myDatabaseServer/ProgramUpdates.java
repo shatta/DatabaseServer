@@ -16,6 +16,8 @@ import java.io.InputStream;
  */
 public class ProgramUpdates extends GlobalFunctions {
      private static String myVersion = getVersion();
+     private static Updater myUpdater = new Updater();
+     private static String newUpdateVersion = myUpdater.checkUpdate();
     
     /**
      * Creates new form ProgramUpdates
@@ -25,8 +27,8 @@ public class ProgramUpdates extends GlobalFunctions {
         setLocationRelativeTo(null);
         setTitle("Ramil Rx System Updates");
         txtCurrentVersion.setText(myVersion);
-        
-    }
+        txtUpdatedVersion.setText(newUpdateVersion);
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,6 +121,7 @@ public class ProgramUpdates extends GlobalFunctions {
         // Close Button.
         this.setVisible(false);
         myPharmSuite.setVisible(true);
+        
     }//GEN-LAST:event_btnCloseActionPerformed
 
     // Functions.
