@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class ProgramUpdates extends GlobalFunctions {
      private static String myVersion = getVersion();
      private static Updater myUpdater = new Updater();
-     private static String newUpdateVersion = myUpdater.checkUpdate();
+     private static String newUpdateVersion;
     
     /**
      * Creates new form ProgramUpdates

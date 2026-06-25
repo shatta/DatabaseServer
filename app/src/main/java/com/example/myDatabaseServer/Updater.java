@@ -25,33 +25,30 @@ public class Updater extends GlobalVariables {
     // Variables.
     private static final String Owner = "Shatta";
     private static final String Repo = "DatabaseServer";
-    private static final String gitURL = "https://www.github.com" + Owner + "/" + Repo + "/" + "releases/latest";
+    private static final String gitURL = "https://github.com/shatta/DatabaseServer/blob/master/app/src/main/resources/config.properties";
     private static String myCurrentVersion = currentVersion;
+    private static String newVersion;
+    private static Properties myProperties;
+    private static URL myURL;
    
     
-    public String checkUpdate() {
-          Properties properties = new Properties();
-          try {
-            String latestVersion = fetchLatestVersion();
-            if (latestVersion != null) {
-                System.out.println("Current Version: " + myCurrentVersion);
-                System.out.println("Latest Version on GitHub: " + latestVersion);
-
-                if (isNewerVersion(myCurrentVersion, latestVersion)) {
-                    System.out.println("An update is available! Please download the new version.");
-                } else {
-                    System.out.println("Your application is up to date.");
-                }
-            } else {
-                System.out.println("Could not retrieve version information.");
-            }
-        } catch (Exception e) {
-            System.err.println("Error checking for updates: " + e.getMessage());
-        }
-       return "Hello";     
+    public static void checkUpdate() {
+       myProperties = new Properties();
+       try {
+          myURL = URI.create(gitURL).toURL();
+          try(InputStream myInputStream = myURL.openStream()) {
+              // Load the properties
+              myProperties.load(myInputStream);
+              
+           }
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null,"Exception is: " + e.getMessage());
+          }
+       }
+             
     }
  
 
     
     
-}
+
