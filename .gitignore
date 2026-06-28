@@ -6,3 +6,10 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+# Ignore Build Files
+build/
+*.jar
+*.zip
+*.exe
+*.msi
