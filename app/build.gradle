@@ -52,7 +52,6 @@ group = 'com.example.myDatabaseServer'
 
 def appVersion = '0.1.0'
 
-version = appVersion
 
 tasks.named('processResources') {
     inputs.property('projectVersion', appVersion)

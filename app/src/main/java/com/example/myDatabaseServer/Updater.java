@@ -32,20 +32,27 @@ public class Updater extends GlobalVariables {
     private static URL myURL;
    
     
-    public static void checkUpdate() {
-       myProperties = new Properties();
-       try {
-          myURL = URI.create(gitURL).toURL();
-          try(InputStream myInputStream = myURL.openStream()) {
-              // Load the properties
-              myProperties.load(myInputStream);
-              
-           }
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null,"Exception is: " + e.getMessage());
-          }
-       }
-             
+  
+       
+      // Functions.
+      // Function get appVersion.
+    public static String getVersion() {
+         Properties properties = new Properties();
+        // Load the file from the classpath
+        try (InputStream input = GlobalVariables.class.getResourceAsStream("https://github.com/shatta/DatabaseServer/blob/master/app/src/main/resources/config.properties")) {
+            
+            if (input == null) {
+                return "Unknown (properties missing)";
+            }
+            
+            properties.load(input);
+            return properties.getProperty("app.version", "Unknown");
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return "Unknown (error loading)";
+        }
+      }  // End of function to getUpdatedVersion.
     }
  
 
