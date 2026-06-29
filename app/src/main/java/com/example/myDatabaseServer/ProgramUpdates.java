@@ -17,7 +17,8 @@ import java.io.InputStream;
 public class ProgramUpdates extends GlobalFunctions {
      private static Updater myUpdater = new Updater();
      private static String myVersion = getVersion();
-     private static String newUpdateVersion = myUpdater.getVersion();
+     private static String newVersion = myUpdater.getVersion();
+   
     
     /**
      * Creates new form ProgramUpdates
@@ -27,7 +28,8 @@ public class ProgramUpdates extends GlobalFunctions {
         setLocationRelativeTo(null);
         setTitle("Ramil Rx System Updates");
         txtCurrentVersion.setText(myVersion);
-        txtUpdatedVersion.setText(newUpdateVersion);
+        txtUpdatedVersion.setText(newVersion);
+
     } 
 
     /**

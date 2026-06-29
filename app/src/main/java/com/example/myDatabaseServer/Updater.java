@@ -9,11 +9,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URI;
+import java.net.HttpURLConnection;
 import java.util.Properties;
 import javax.swing.*;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.http.*;
+import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,11 +25,13 @@ public class Updater extends GlobalVariables {
     // Variables.
     private static final String Owner = "Shatta";
     private static final String Repo = "DatabaseServer";
-    private static final String gitURL = "https://github.com/shatta/DatabaseServer/blob/master/app/src/main/resources/config.properties";
+    private static final String gitURL = "https://github.com/shatta/DatabaseServer/blob/master/update.properties";
     private static String myCurrentVersion = currentVersion;
     private static String newVersion;
     private static Properties myProperties;
     private static URL myURL;
+    private static HttpURLConnection connection;
+    private static int respondCode;
    
     
   
@@ -37,24 +39,37 @@ public class Updater extends GlobalVariables {
       // Functions.
       // Function get appVersion.
     public static String getVersion() {
-         Properties properties = new Properties();
-        // Load the file from the classpath
-        try (InputStream input = GlobalVariables.class.getResourceAsStream("https://github.com/shatta/DatabaseServer/blob/master/app/src/main/resources/config.properties")) {
+       try {
+        myURL = new URI(gitURL).toURL();
+        connection = (HttpURLConnection)myURL.openConnection();
+        connection.setRequestMethod("GET");
+        
+        // Optional set timeout to prevent thread from hanging.
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+        
+        respondCode = connection.getResponseCode();
+        if(respondCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("HTTP Error Code: " + respondCode);
+        } // end of if statement for respond code.
+        
+        myProperties = new Properties();
+        try (InputStream myInputStream = connection.getInputStream()) {
+            myProperties.load(myInputStream);
+            newVersion = myProperties.getProperty("current.version");
+            JOptionPane.showMessageDialog(null, newVersion);
             
-            if (input == null) {
-                return "Unknown (properties missing)";
-            }
-            
-            properties.load(input);
-            return properties.getProperty("app.version", "Unknown");
-            
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return "Unknown (error loading)";
+        } finally {
+            connection.disconnect();
         }
-      }  // End of function to getUpdatedVersion.
+        
+       } catch(Exception e) {
+           JOptionPane.showMessageDialog(null,"Exception: " + e.getMessage());
+       }
+       
+       return newVersion;
     }
- 
+}
 
     
     
