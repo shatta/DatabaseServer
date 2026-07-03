@@ -16,7 +16,7 @@ import java.io.InputStream;
  */
 public class ProgramUpdates extends GlobalFunctions {
      private static Updater myUpdater = new Updater();
-     private static String myVersion = getVersion();
+     private static String myVersion = getAppVersion();
      private static String newVersion = myUpdater.getVersion();
    
     
@@ -129,7 +129,7 @@ public class ProgramUpdates extends GlobalFunctions {
     // Functions.
     
     // Function get appVersion.
-    private static String getVersion() {
+    private static String getAppVersion() {
          Properties properties = new Properties();
         // Load the file from the classpath
         try (InputStream input = GlobalVariables.class.getResourceAsStream("/config.properties")) {

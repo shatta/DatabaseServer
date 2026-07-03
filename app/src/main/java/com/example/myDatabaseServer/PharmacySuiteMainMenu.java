@@ -84,6 +84,7 @@ public class PharmacySuiteMainMenu extends GlobalFunctions {
         });
 
         btnVancCalculator.setText("Vancomycin Dosing Calculator");
+        btnVancCalculator.setEnabled(false);
 
         btnLogout.setBackground(new java.awt.Color(242, 242, 242));
         btnLogout.setMnemonic('x');

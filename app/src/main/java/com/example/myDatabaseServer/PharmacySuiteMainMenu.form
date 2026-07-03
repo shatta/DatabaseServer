@@ -172,6 +172,7 @@
     <Component class="javax.swing.JButton" name="btnVancCalculator">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vancomycin Dosing Calculator"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogout">
