@@ -18,7 +18,8 @@ public class ProgramUpdates extends GlobalFunctions {
      private static Updater myUpdater = new Updater();
      private static String myVersion = getAppVersion();
      private static String newVersion = myUpdater.getVersion();
-   
+     private static int toUpdate = myUpdater.checkVersion();
+    
     
     /**
      * Creates new form ProgramUpdates
@@ -29,6 +30,12 @@ public class ProgramUpdates extends GlobalFunctions {
         setTitle("Ramil Rx System Updates");
         txtCurrentVersion.setText(myVersion);
         txtUpdatedVersion.setText(newVersion);
+        if(toUpdate > 0) {
+            btnUpdate.setVisible(true);
+        } else {
+            btnUpdate.setVisible(false);
+        }
+
 
     } 
 
@@ -47,6 +54,7 @@ public class ProgramUpdates extends GlobalFunctions {
         lblUpdatedVersion = new javax.swing.JLabel();
         txtCurrentVersion = new javax.swing.JTextField();
         btnClose = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +83,10 @@ public class ProgramUpdates extends GlobalFunctions {
         btnClose.setBorder(null);
         btnClose.addActionListener(this::btnCloseActionPerformed);
 
+        btnUpdate.setBackground(new java.awt.Color(242, 242, 242));
+        btnUpdate.setText("Update");
+        btnUpdate.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,20 +95,23 @@ public class ProgramUpdates extends GlobalFunctions {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblUpdatedVersion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtUpdatedVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblTitle)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblCurrentVersion)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtCurrentVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(175, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUpdatedVersion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtUpdatedVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblTitle)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblCurrentVersion)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtCurrentVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(175, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,9 +126,11 @@ public class ProgramUpdates extends GlobalFunctions {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUpdatedVersion)
                     .addComponent(txtUpdatedVersion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,6 +168,7 @@ public class ProgramUpdates extends GlobalFunctions {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel lblCurrentVersion;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUpdatedVersion;

@@ -18,6 +18,7 @@ import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  *
  * @author Jermaine H. Ramsay
@@ -34,6 +35,12 @@ public class Updater extends GlobalVariables {
     private static HttpURLConnection connection;
     private static int respondCode;
     private static String downloadLink;
+    private static String answer;
+    private static int v1;
+    private static int v2;
+    private static int maxLength;
+    private static String[] version1;
+    private static String[] version2;
    
     
   
@@ -104,6 +111,24 @@ public class Updater extends GlobalVariables {
        
        return downloadLink;
     }
+   
+   // Function to check if version is older than the current version.
+   public int checkVersion() {
+       version1 = myCurrentVersion.split("\\.");
+       version2 = newVersion.split("\\.");
+       maxLength = Math.max(version1.length, version2.length);
+       
+       for(int i = 0; i < maxLength; i++) {
+           v1 = i < version1.length ? Integer.parseInt(version1[i]) : 0;
+           v2 = i < version2.length ? Integer.parseInt(version2[i]) : 0;  
+           
+           if (v1 < v2) return -1;
+           if (v1 > v2) return 1;
+       }
+       
+       
+       return 0;
+   }
 }
      
 
