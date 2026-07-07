@@ -38,7 +38,6 @@ public class ProgramUpdates extends GlobalFunctions {
             btnUpdate.setVisible(false);
         }
      
-         JOptionPane.showMessageDialog(null,getDownloadLink);
 
     } 
 
