@@ -27,7 +27,7 @@ public class Updater extends GlobalVariables {
     // Variables.
     private static final String Owner = "Shatta";
     private static final String Repo = "DatabaseServer";
-    private static final String gitURL = "https://raw.githubusercontent.com/shatta/DatabaseServer/master/update.properties";
+    private static final String gitURL = "https://raw.githubusercontent.com/shatta/DatabaseServer/refs/heads/master/update.properties";
     private static String myCurrentVersion = currentVersion;
     private static String newVersion;
     private static Properties myProperties;
@@ -36,8 +36,8 @@ public class Updater extends GlobalVariables {
     private static int respondCode;
     private static String downloadLink;
     private static String answer;
-    private static int v1;
-    private static int v2;
+    private static int[] v1;
+    private static int[] v2;
     private static int maxLength;
     private static String[] version1;
     private static String[] version2;
@@ -98,7 +98,7 @@ public class Updater extends GlobalVariables {
         myProperties = new Properties();
         try (InputStream myInputStream = connection.getInputStream()) {
             myProperties.load(myInputStream);
-            downloadLink = myProperties.getProperty("current.version");
+            downloadLink = myProperties.getProperty("download_url");
            
             
         } finally {
@@ -117,17 +117,31 @@ public class Updater extends GlobalVariables {
        version1 = myCurrentVersion.split("\\.");
        version2 = newVersion.split("\\.");
        maxLength = Math.max(version1.length, version2.length);
+     
+       
+       
+       v1 = new int[maxLength];
+       v2 = new int[maxLength];
        
        for(int i = 0; i < maxLength; i++) {
-           v1 = i < version1.length ? Integer.parseInt(version1[i]) : 0;
-           v2 = i < version2.length ? Integer.parseInt(version2[i]) : 0;  
-           
-           if (v1 < v2) return -1;
-           if (v1 > v2) return 1;
+           v1[i] = Integer.parseInt(version1[i]);
+           v2[i] = Integer.parseInt(version2[i]);
+          
        }
        
-       
+       for(int i = 0; i < v1.length; i++) {
+           if(v1[i] < v2[i]) {
+               return 1;
+           } else if(v1[i] > v2[i]) {
+               return -1;
+               
+           } 
+           
+        
+       }
+      
        return 0;
+      
    }
 }
      

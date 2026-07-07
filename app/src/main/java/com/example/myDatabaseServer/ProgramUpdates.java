@@ -19,6 +19,7 @@ public class ProgramUpdates extends GlobalFunctions {
      private static String myVersion = getAppVersion();
      private static String newVersion = myUpdater.getVersion();
      private static int toUpdate = myUpdater.checkVersion();
+     private static String getDownloadLink = myUpdater.getDownloadLink();
     
     
     /**
@@ -31,11 +32,13 @@ public class ProgramUpdates extends GlobalFunctions {
         txtCurrentVersion.setText(myVersion);
         txtUpdatedVersion.setText(newVersion);
         if(toUpdate > 0) {
+            
             btnUpdate.setVisible(true);
         } else {
             btnUpdate.setVisible(false);
         }
-
+     
+         JOptionPane.showMessageDialog(null,getDownloadLink);
 
     } 
 
