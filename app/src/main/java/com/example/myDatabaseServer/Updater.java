@@ -27,7 +27,7 @@ public class Updater extends GlobalVariables {
     // Variables.
     private static final String Owner = "Shatta";
     private static final String Repo = "DatabaseServer";
-    private static final String gitURL = "https://raw.githubusercontent.com/shatta/DatabaseServer/refs/heads/SourceCode/update.properties";
+    private static final String gitURL = "https://raw.githubusercontent.com/shatta/DatabaseServer/refs/heads/master/Updates/updates.properties";
     private static String myCurrentVersion = currentVersion;
     private static String newVersion;
     private static Properties myProperties;
@@ -41,7 +41,7 @@ public class Updater extends GlobalVariables {
     private static int maxLength;
     private static String[] version1;
     private static String[] version2;
-   
+    private static String osName;
     
   
        
